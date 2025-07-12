@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="task_management_system.Task_loginController">
+   <children>
+      <Label alignment="CENTER" prefHeight="77.0" prefWidth="600.0" style="-fx-background-color: #d3d3d3;" text="Task Management System">
+         <font>
+            <Font size="33.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tf1" layoutX="225.0" layoutY="113.0" prefHeight="44.0" prefWidth="150.0" promptText="Name" />
+      <TextField fx:id="tf2" layoutX="225.0" layoutY="169.0" prefHeight="44.0" prefWidth="150.0" promptText="Password" />
+      <Button fx:id="btn1" layoutX="274.0" layoutY="237.0" mnemonicParsing="false" onAction="#signin_1" text="Sign in" />
+      <Button fx:id="btn2" layoutX="235.0" layoutY="282.0" mnemonicParsing="false" onAction="#createA_1" prefHeight="26.0" prefWidth="130.0" text="Create Account" />
+   </children>
+</AnchorPane>
