@@ -17,6 +17,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -36,8 +37,10 @@ public class DashboardController implements Initializable {
     private Task selectedTask = null;
 
     private String currentUserName;
-    @FXML
-    private Button btnlogout;
+    @FXML private Button btnlogout;
+    @FXML private Label incompletetask;
+    @FXML private Label completetask;
+    @FXML private TextField search;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -60,12 +63,15 @@ public class DashboardController implements Initializable {
 
         btn5.setDisable(true);
         btn6.setDisable(true);
+
+        search.textProperty().addListener((obs, oldText, newText) -> {
+            filterSearch(newText);
+        });
     }
 
     public void setUserName(String userName) throws Exception {
         this.currentUserName = userName;
         name_label.setText(userName);
-
         loadTasksFromDB();  
     }
 
@@ -97,6 +103,7 @@ public class DashboardController implements Initializable {
                       "Could not load tasks from database.");
         }
         refreshFilter();
+        updateTaskCounters();
     }
 
     @FXML
@@ -133,6 +140,7 @@ public class DashboardController implements Initializable {
         }
 
         refreshFilter();
+        updateTaskCounters();
         text1.clear();
         textdetails.clear();
     }
@@ -170,6 +178,7 @@ public class DashboardController implements Initializable {
         }
 
         refreshFilter();
+        updateTaskCounters();
         text1.clear();
         textdetails.clear();
         listview.getSelectionModel().clearSelection();
@@ -209,6 +218,7 @@ public class DashboardController implements Initializable {
                 }
 
                 refreshFilter();
+                updateTaskCounters();
                 text1.clear();
                 textdetails.clear();
                 listview.getSelectionModel().clearSelection();
@@ -220,7 +230,20 @@ public class DashboardController implements Initializable {
     @FXML private void complete  (ActionEvent event) { filteredList.setAll(masterList.filtered(Task::isDone)); }
     @FXML private void alltask   (ActionEvent event) { filteredList.setAll(masterList); }
 
-  
+    private void filterSearch(String keyword) {
+        filteredList.setAll(masterList.filtered(task ->
+            task.getName().toLowerCase().contains(keyword.toLowerCase()) ||
+            task.getDescription().toLowerCase().contains(keyword.toLowerCase())
+        ));
+    }
+
+    private void updateTaskCounters() {
+        long incompleteCount = masterList.stream().filter(t -> !t.isDone()).count();
+        long completeCount   = masterList.stream().filter(Task::isDone).count();
+        incompletetask.setText("Incomplete Task = " + incompleteCount);
+        completetask.setText("Complete Task = " + completeCount);
+    }
+
     @FXML
     private void onListClicked(MouseEvent event) {
         if (event.getClickCount() == 2) {
@@ -274,6 +297,7 @@ public class DashboardController implements Initializable {
 
             task.setDone(done);
             refreshFilter();
+            updateTaskCounters();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -281,9 +305,9 @@ public class DashboardController implements Initializable {
         }
     }
 
-    private void refreshFilter() { filteredList.setAll(listview.getItems().equals(masterList)
-                                        ? masterList
-                                        : listview.getItems()); }
+    private void refreshFilter() {
+        filterSearch(search.getText());
+    }
 
     private void showAlert(Alert.AlertType type, String title, String msg) {
         Alert alert = new Alert(type);
@@ -294,36 +318,32 @@ public class DashboardController implements Initializable {
     }
 
     @FXML
-private void logout(ActionEvent event) {
-    Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
-    confirm.setTitle("Logout Confirmation");
-    confirm.setHeaderText("Are you sure you want to logout?");
-    confirm.setContentText("You will be returned to the login screen.");
+    private void logout(ActionEvent event) {
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setTitle("Logout Confirmation");
+        confirm.setHeaderText("Are you sure you want to logout?");
+        confirm.setContentText("You will be returned to the login screen.");
 
-    confirm.showAndWait().ifPresent(response -> {
-        if (response == ButtonType.OK) {
-            try {
-                // Login FXML
-                FXMLLoader loader = new FXMLLoader(
-                        getClass().getResource("Task_login.fxml"));
-                Parent root = loader.load();
-                Stage stage = (Stage) ((Node) event.getSource())
-                                        .getScene().getWindow();
+        confirm.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("Task_login.fxml"));
+                    Parent root = loader.load();
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-                stage.setScene(new Scene(root));
-                stage.setTitle("Task Management - Login");
-                stage.show(); 
-                masterList.clear(); 
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                Alert err = new Alert(Alert.AlertType.ERROR);
-                err.setTitle("Error");
-                err.setHeaderText(null);
-                err.setContentText("Could not load login screen.");
-                err.showAndWait();
+                    stage.setScene(new Scene(root));
+                    stage.setTitle("Task Management - Login");
+                    stage.show(); 
+                    masterList.clear(); 
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    Alert err = new Alert(Alert.AlertType.ERROR);
+                    err.setTitle("Error");
+                    err.setHeaderText(null);
+                    err.setContentText("Could not load login screen.");
+                    err.showAndWait();
+                }
             }
-        }
-    });
-}
-
+        });
+    }
 }

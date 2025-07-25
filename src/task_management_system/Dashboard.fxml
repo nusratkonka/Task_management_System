@@ -4,39 +4,60 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="533.0" prefWidth="838.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="task_management_system.DashboardController">
+<AnchorPane id="AnchorPane" prefHeight="533.0" prefWidth="944.0" style="-fx-background-color: #FFE4E1;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="task_management_system.DashboardController">
    <children>
-      <Label alignment="CENTER" prefHeight="78.0" prefWidth="838.0" style="-fx-background-color: #d3d3d3;" text="Task Management System">
+      <Label alignment="CENTER" prefHeight="78.0" prefWidth="944.0" style="-fx-background-color: #FFC0CB;" text="Task Management System">
          <font>
             <Font size="33.0" />
          </font>
       </Label>
-      <ListView fx:id="listview" layoutX="8.0" layoutY="128.0" onMouseClicked="#onListClicked" prefHeight="391.0" prefWidth="186.0" />
+      <ListView fx:id="listview" layoutX="8.0" layoutY="128.0" onMouseClicked="#onListClicked" prefHeight="391.0" prefWidth="186.0" style="-fx-background-color: white;" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="8.0" layoutY="95.0" prefHeight="33.0" prefWidth="186.0" style="-fx-background-color: #d3d3d3;" text="Task List">
          <font>
             <Font size="21.0" />
          </font>
       </Label>
-      <TextField fx:id="text1" layoutX="226.0" layoutY="107.0" prefHeight="78.0" prefWidth="358.0" promptText="Task headline here" style="-fx-background-color: #FFFAFA; -fx-border-color: #4B4B4B;" />
-      <Button fx:id="btn4" layoutX="309.0" layoutY="462.0" mnemonicParsing="false" onAction="#add" prefHeight="26.0" prefWidth="54.0" text="Add" />
-      <Button fx:id="btn5" layoutX="226.0" layoutY="462.0" mnemonicParsing="false" onAction="#update" text="update" />
-      <Button fx:id="btn6" layoutX="394.0" layoutY="462.0" mnemonicParsing="false" onAction="#delete" text="delete" />
-      <Button fx:id="btn7" layoutX="226.0" layoutY="417.0" mnemonicParsing="false" onAction="#incomplete" text="Incomplete Task" />
-      <Button fx:id="btn8" layoutX="354.0" layoutY="416.0" mnemonicParsing="false" onAction="#complete" prefHeight="26.0" prefWidth="102.0" text="Complete Task" />
-      <Button fx:id="btn9" layoutX="481.0" layoutY="416.0" mnemonicParsing="false" onAction="#alltask" prefHeight="26.0" prefWidth="102.0" text="All Task" />
-      <TextField fx:id="textdetails" alignment="TOP_LEFT" layoutX="226.0" layoutY="216.0" prefHeight="182.0" prefWidth="358.0" promptText="Write task details here" style="-fx-background-color: #FFFAFA; -fx-border-color: #4B4B4B;" />
-      <Label fx:id="name_label" alignment="CENTER" layoutX="625.0" layoutY="107.0" prefHeight="78.0" prefWidth="186.0" style="-fx-background-color: #4B4B4B;" textFill="WHITE">
+      <TextField fx:id="text1" layoutX="226.0" layoutY="107.0" prefHeight="78.0" prefWidth="310.0" promptText="Task headline here" style="-fx-background-color: white; -fx-border-color: #4B4B4B;" />
+      <Button fx:id="btn4" layoutX="292.0" layoutY="462.0" mnemonicParsing="false" onAction="#add" prefHeight="26.0" prefWidth="54.0" style="-fx-background-color: #F08080;" text="Add" textFill="WHITE" />
+      <Button fx:id="btn5" layoutX="226.0" layoutY="462.0" mnemonicParsing="false" onAction="#update" style="-fx-background-color: #F08080;" text="update" textFill="WHITE" />
+      <Button fx:id="btn6" layoutX="360.0" layoutY="462.0" mnemonicParsing="false" onAction="#delete" style="-fx-background-color: #F08080;" text="delete" textFill="WHITE" />
+      <Button fx:id="btn7" layoutX="226.0" layoutY="417.0" mnemonicParsing="false" onAction="#incomplete" prefHeight="26.0" prefWidth="102.0" style="-fx-background-color: #F08080;" text="Incomplete Task" textFill="WHITE" />
+      <Button fx:id="btn8" layoutX="342.0" layoutY="416.0" mnemonicParsing="false" onAction="#complete" prefHeight="26.0" prefWidth="102.0" style="-fx-background-color: #F08080;" text="Complete Task" textFill="WHITE" />
+      <Button fx:id="btn9" layoutX="462.0" layoutY="416.0" mnemonicParsing="false" onAction="#alltask" prefHeight="26.0" prefWidth="74.0" style="-fx-background-color: #F08080;" text="All Task" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <TextField fx:id="textdetails" alignment="TOP_LEFT" layoutX="226.0" layoutY="216.0" prefHeight="182.0" prefWidth="309.0" promptText="Write task details here" style="-fx-background-color: white; -fx-border-color: #4B4B4B;" />
+      <Label fx:id="name_label" alignment="CENTER" layoutX="759.0" layoutY="110.0" prefHeight="48.0" prefWidth="173.0" style="-fx-background-color: #4B4B4B;" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="16.0" />
          </font>
       </Label>
-      <Button fx:id="btnlogout" layoutX="700.0" layoutY="474.0" mnemonicParsing="false" onAction="#logout" prefHeight="26.0" prefWidth="74.0" text="Logout" textFill="#ff1010">
+      <Button fx:id="btnlogout" layoutX="846.0" layoutY="488.0" mnemonicParsing="false" onAction="#logout" prefHeight="26.0" prefWidth="74.0" style="-fx-background-color: Blue;" text="Logout" textFill="WHITE">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Button>
+      <ImageView fitHeight="186.0" fitWidth="174.0" layoutX="759.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../picture/task1.jpg" />
+         </image>
+      </ImageView>
+      <Label fx:id="incompletetask" alignment="CENTER" layoutX="557.0" layoutY="110.0" prefHeight="78.0" prefWidth="162.0" style="-fx-background-color: white;" text="Count">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="completetask" alignment="CENTER" layoutX="557.0" layoutY="201.0" prefHeight="78.0" prefWidth="162.0" style="-fx-background-color: white;" text="Count">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="search" layoutX="557.0" layoutY="294.0" prefHeight="42.0" prefWidth="162.0" promptText="Search By Task Headline" />
    </children>
 </AnchorPane>
